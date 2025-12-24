@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GYM Management System</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            width: 400px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 15px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            border: 1px solid #ddd;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: #f5f5f5;
+        }
+
+        .delete-btn {
+            background-color: #100808;
+            color: rgba(157, 27, 27, 0.827);
+            border: none;
+            padding: 5px 8px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .delete-btn:hover {
+            background-color: #96e535;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>GYM Management System</h2>
+
+        
+        <input type="text" id="name" placeholder="Member Name">
+        <input type="number" id="age" placeholder="Age">
+
+        <select id="membership">
+            <option value="">Select Membership</option>
+            <option value="Monthly">Monthly</option>
+            <option value="Quarterly">Quarterly</option>
+            <option value="Yearly">Yearly</option>
+        </select>
+
+        <button onclick="addMember()">Add Member</button>
+
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Membership</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="memberList"></tbody>
+        </table>
+    </div>
+
+    <script>
+        
+        function addMember() {
+            let name = document.getElementById("name").value;
+            let age = document.getElementById("age").value;
+            let membership = document.getElementById("membership").value;
+
+            
+            if (name === "" || age === "" || membership === "") {
+                alert("Please fill all details");
+                return;
+            }
+
+            
+            let row = document.createElement("tr");
+
+            row.innerHTML = `
+                <td>${name}</td>
+                <td>${age}</td>
+                <td>${membership}</td>
+                <td>
+                    <button class="delete-btn" onclick="deleteMember(this)">Delete</button>
+                </td>
+            `;
+
+            document.getElementById("memberList").appendChild(row);
+
+            
+            document.getElementById("name").value = "";
+            document.getElementById("age").value = "";
+            document.getElementById("membership").value = "";
+        }
+
+        
+        function deleteMember(button) {
+            button.parentElement.parentElement.remove();
+        }
+    </script>
+
+</body>
+</html>
