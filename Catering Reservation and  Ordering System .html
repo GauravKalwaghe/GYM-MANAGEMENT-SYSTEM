@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Catering Reservation System</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #d97575;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: rgb(225, 197, 197);
+            padding: 20px;
+            width: 420px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            font-size: 15px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 15px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            border: 1px solid #ddd;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: #f5f5f5;
+        }
+
+        .total {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Catering Reservation</h2>
+
+    
+    <input type="text" id="customerName" placeholder="Customer Name">
+    <input type="text" id="eventType" placeholder="Event Type (Wedding, Party)">
+    <input type="date" id="eventDate">
+
+    <h3>Order Food</h3>
+
+    
+    <select id="foodItem">
+        <option value="">Select Food Item</option>
+        <option value="Veg Thali">Veg Thali - ₹150</option>
+        <option value="Non-Veg Thali">Non-Veg Thali - ₹250</option>
+        <option value="Paneer Curry">Paneer Curry - ₹200</option>
+        <option value="Chicken Curry">Chicken Curry - ₹300</option>
+    </select>
+
+    <input type="number" id="quantity" placeholder="Quantity">
+
+    <button onclick="addOrder()">Add Order</button>
+
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Qty</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody id="orderList"></tbody>
+    </table>
+
+    <div class="total">
+        Total Bill: ₹ <span id="totalAmount">0</span>
+    </div>
+</div>
+
+<script>
+    let total = 0;
+
+    
+    let prices = {
+        "Veg Thali": 150,
+        "Non-Veg Thali": 250,
+        "Paneer Curry": 200,
+        "Chicken Curry": 300
+    };
+
+    
+    function addOrder() {
+        let food = document.getElementById("foodItem").value;
+        let qty = document.getElementById("quantity").value;
+
+        if (food === "" || qty === "") {
+            alert("Please select food and quantity");
+            return;
+        }
+
+        qty = Number(qty);
+        let price = prices[food] * qty;
+
+        let row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${food}</td>
+            <td>${qty}</td>
+            <td>₹${price}</td>
+        `;
+
+        document.getElementById("orderList").appendChild(row);
+
+        total += price;
+        document.getElementById("totalAmount").innerText = total;
+
+        document.getElementById("foodItem").value = "";
+        document.getElementById("quantity").value = "";
+    }
+</script>
+
+</body>
+</html>
